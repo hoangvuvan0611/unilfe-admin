@@ -16,12 +16,18 @@ const Sidebar: React.FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
             <div className="site-bar-menu-button">
                 <button
                     onClick={setSidebarOpen}
-
+                    style={{backgroundColor: theme.palette.background.default}}
+                    className={'lg:hidden fixed top-4'}
                 >
                     {isOpen ? <Close className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
             </div>
-            <div></div>
+            <div
+                style={{backgroundColor: theme.palette.background.default}}
+                className={''}
+            >
+    
+            </div>
         </div>
     );
 }
