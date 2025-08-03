@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/admin/sidebar/Sidebar.tsx";
 import { useState } from "react"
+import Appbar from "../components/admin/appbar/Appbar.tsx";
 
 export default function AdminLayout() {
 
@@ -15,6 +16,7 @@ export default function AdminLayout() {
                 <Sidebar isOpen={sidebarOpen} setSidebarOpen={() => setSidebarOpen(!sidebarOpen)}/>
             </div>
             <div className={`admin-layout-children min-w-6/7 max-w-6/7 ${!sidebarOpen?'lg:w-60':''}`}>
+                <Appbar/>
                 <Outlet />
             </div>
         </div>

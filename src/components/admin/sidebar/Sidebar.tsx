@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material";
 import type { FC } from "react";
 import { SidebarObject } from "./SitebarObject.tsx";
 import { Link, useLocation } from "react-router-dom";
-import './Sidebar.css';
 import logo from "../../../assets/unilife_logo.png";
 import { PATH_ADMIN } from "../../../common/Const.ts";
 
@@ -21,7 +20,11 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
 
     return (
         <div className="sidebar">
-            <Link to={PATH_ADMIN} className={'sidebar-header flex justify-center-safe bg-gray-200 rounded-2xl'}>
+            <Link
+                to={PATH_ADMIN}
+                style={{backgroundColor: theme.palette.background.container}}
+                className={'sidebar-header flex justify-center-safe rounded-2xl'}
+            >
                 <img src={logo} width={80} height={80} alt={'Unilife'}/>
             </Link>
             <div className="sidebar-menu-button lg:hidden">
@@ -44,7 +47,14 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
                                 return <Link key={index} to={val.path} >
                                     <li
                                         id={location.pathname === val.path ? 'active' : ''}
-                                        className={`flex sidebar-item ${mode === 'dark' ? ' hover:bg-gray-500' : ' hover:bg-gray-100'} items-center p-2 rounded-sm text-black`}
+                                        className={`flex sidebar-item 
+                                            items-center p-2 rounded-sm 
+                                            cursor-pointer 
+                                            mt-3
+                                            font-medium
+                                            ${location.pathname === val.path ? 'bg-[#0faf0ff5] text-white' : 'text-black'}
+                                            ${mode === 'dark' ? ' hover:bg-gray-500 bg-[#242424] text-white' : location.pathname === val.path ? '' : ' hover:bg-gray-200'} 
+                                        `}
                                     >
                                         <div className="mr-4">
                                             {val.icon}

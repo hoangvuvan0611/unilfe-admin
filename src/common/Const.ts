@@ -23,5 +23,10 @@ export const SIDEBAR_PATH_SETTING = "/admin/setting";
 
 
 // Mode
-export const MODE_DARK = "DARK";
-export const MODE_LIGHT = "LIGHT";
+export const MODE_DARK = "dark";
+export const MODE_LIGHT = "light";
+
+export type ThemeMode = typeof MODE_LIGHT | typeof MODE_DARK;
+
+// TITLE BUTTON
+export const TITLE_LOGOUT = "Đăng xuất"
