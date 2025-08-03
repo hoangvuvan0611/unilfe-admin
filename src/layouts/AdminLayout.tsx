@@ -2,13 +2,17 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/admin/sidebar/Sidebar.tsx";
 import { useState } from "react"
 import Appbar from "../components/admin/appbar/Appbar.tsx";
+import {useTheme} from "@mui/material";
 
 export default function AdminLayout() {
-
+    const theme = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
     return (
-        <div className="admin-layout flex flex-row flex-1 min-h-screen min-w-screen max-w-screen">
+        <div
+            style={{backgroundColor: theme.palette.background.default}}
+            className="admin-layout flex flex-row flex-1 min-h-screen min-w-screen max-w-screen "
+        >
             <div
                 style={{borderRight: '1px solid #B8B8B8'}}
                 className={`admin-layout-sidebar p-2 min-w-1/7 max-w-1/7 ${!sidebarOpen?'lg:w-45':''} border-r-1`}

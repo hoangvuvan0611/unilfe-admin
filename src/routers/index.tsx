@@ -11,7 +11,7 @@ import {
     SIDEBAR_PATH_ROOM, SIDEBAR_PATH_SETTING,
     SIDEBAR_PATH_STORE,
     SIDEBAR_PATH_USER
-} from "../common/Const.ts";
+} from "../common/const.ts";
 import User from "../pages/admin/user/User.tsx";
 import Setting from "../pages/admin/setting/Setting.tsx";
 

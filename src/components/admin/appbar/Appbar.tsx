@@ -3,7 +3,7 @@ import {useThemeContext} from "../../../providers/themeContext.ts";
 import {useEffect, useState} from "react";
 import { MaterialUISwitch } from "../../switch/MaterialUiSwitch.tsx";
 import { FaSignOutAlt } from "react-icons/fa";
-import {TITLE_LOGOUT} from "../../../common/Const.ts";
+import {TITLE_LOGOUT} from "../../../common/const.ts";
 import { useTheme } from '@mui/material/styles';
 
 export default function Appbar() {

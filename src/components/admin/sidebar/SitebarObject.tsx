@@ -15,7 +15,7 @@ import {
     SIDEBAR_TITLE_STORE,
     SIDEBAR_TITLE_USER,
     SIDEBAR_PATH_DASHBOARD
-} from '../../../common/Const.ts';
+} from '../../../common/const.ts';
 import { HiHome } from "react-icons/hi2";
 import { BsPostcard } from "react-icons/bs";
 import { FaStore } from "react-icons/fa";

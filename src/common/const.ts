@@ -29,4 +29,14 @@ export const MODE_LIGHT = "light";
 export type ThemeMode = typeof MODE_LIGHT | typeof MODE_DARK;
 
 // TITLE BUTTON
-export const TITLE_LOGOUT = "Đăng xuất"
+export const TITLE_LOGOUT = "Đăng xuất";
+
+// SORT TYPE
+export const SORT_TYPE_DEFAULT = "default";
+export const SORT_TYPE_NEWEST = "newest";
+export const SORT_TYPE_PRICE_ASC = "price_asc";
+export const SORT_TYPE_PRICE_DESC = "price_desc";
+export type SortType = typeof SORT_TYPE_DEFAULT
+    | typeof SORT_TYPE_NEWEST
+    | typeof SORT_TYPE_PRICE_ASC
+    | typeof SORT_TYPE_PRICE_DESC;

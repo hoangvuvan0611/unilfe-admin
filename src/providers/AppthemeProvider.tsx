@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider, CssBaseline } from '@mui/material';
 import { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import { ThemeContext } from './themeContext';
-import {MODE_LIGHT, MODE_DARK, type ThemeMode} from "../common/Const.ts";
+import {MODE_LIGHT, MODE_DARK, type ThemeMode} from "../common/const.ts";
 
 const AppThemeProvider = ({ children }: PropsWithChildren) => {
     const [mode, setMode] = useState<ThemeMode>(MODE_LIGHT);
@@ -18,8 +18,8 @@ const AppThemeProvider = ({ children }: PropsWithChildren) => {
                 ? {
                     primary: { main: '#ffffff' },
                     background: {
-                        default: '#f1f7ff',
-                        container: '#e5e7eb'
+                        default: '#ffffff',
+                        container: '#f9f9f9'
                     },
                     text: {
                         primary: '#000000',

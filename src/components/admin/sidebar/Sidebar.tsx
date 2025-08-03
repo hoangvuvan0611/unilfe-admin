@@ -5,7 +5,7 @@ import type { FC } from "react";
 import { SidebarObject } from "./SitebarObject.tsx";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/unilife_logo.png";
-import { PATH_ADMIN } from "../../../common/Const.ts";
+import { PATH_ADMIN } from "../../../common/const.ts";
 
 interface SidebarProps {
     isOpen: boolean,
@@ -22,7 +22,6 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
         <div className="sidebar">
             <Link
                 to={PATH_ADMIN}
-                style={{backgroundColor: theme.palette.background.container}}
                 className={'sidebar-header flex justify-center-safe rounded-2xl'}
             >
                 <img src={logo} width={80} height={80} alt={'Unilife'}/>
@@ -30,14 +29,12 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
             <div className="sidebar-menu-button lg:hidden">
                 <button
                     onClick={setSidebarOpen}
-                    style={{backgroundColor: theme.palette.background.default}}
                     className={'fixed top-4'}
                 >
                     {isOpen ? <Close className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </button>
             </div>
             <div
-                style={{backgroundColor: theme.palette.background.default}}
                 className={'sidebar-list-item'}
             >
                 <nav>
