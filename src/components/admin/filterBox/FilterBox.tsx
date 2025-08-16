@@ -42,15 +42,15 @@ export default function FilterBox() {
             className={'filter-box mt-2 rounded-md flex flex-col'}
         >
             {/* Header: thong tin header */}
-            <div className="flex items-center justify-between py-2 px-4">
+            <div className="flex items-center justify-between py-1 px-4">
                 {/* Left side - Filter button */}
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
                         className={`
-                            flex items-center gap-2 px-4 py-2 rounded-md border 
+                            flex items-center gap-2 rounded-md border 
                             transition-all duration-300 ease-in-out
-                            text-sm font-bold
+                            font-bold
                             ${isExpanded
                                 ? 'border-gray-900 bg-gray-50'
                                 : 'hover:border-gray-400'
@@ -58,11 +58,11 @@ export default function FilterBox() {
                         `}
                     >
                         <CiFilter size={16} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                        <span>Bộ lọc</span>
+                        <text className={'text-xs'}>Bộ lọc</text>
                         {getActiveFilterCount() > 0 && (
-                            <span className="ml-1 px-2 py-0.5 bg-gray-900 text-white text-xs rounded-full">
-                    {getActiveFilterCount()}
-                  </span>
+                            <text className="ml-1 px-1 py-0.5 bg-gray-900 text-white text-xs rounded-full">
+                                {getActiveFilterCount()}
+                            </text>
                         )}
                     </button>
                 </div>

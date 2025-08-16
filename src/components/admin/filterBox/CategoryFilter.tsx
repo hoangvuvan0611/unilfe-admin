@@ -19,14 +19,13 @@ export default function CategoryFilter({ onChange }: CategoryFilterProps) {
             ? selectedCategories.filter(id => id !== categoryId)
             : [...selectedCategories, categoryId];
 
-        alert(newSelected)
         setSelectedCategories(newSelected);
         onChange?.(newSelected);
     };
 
     return (
         <div className="flex flex-col">
-            <h3 className="text-base font-medium mb-2">Danh mục</h3>
+            <h3 className="text-sm font-medium mb-2">Danh mục</h3>
             <div className="flex flex-col gap-2">
                 {categories.map((category, index) => (
                     <div key={index} className="flex items-center gap-2">
@@ -36,8 +35,8 @@ export default function CategoryFilter({ onChange }: CategoryFilterProps) {
                                 selectedCategories.includes(category.id) ? 'bg-gray-100' : ''
                             }`}
                         >
-                            <span>{category.label}</span>
-                            <span className="text-sm text-gray-500">{category.count}</span>
+                            <text className={'text-xs'}>{category.label}</text>
+                            <span className="text-xs text-gray-500">{category.count}</span>
                         </button>
                     </div>
                 ))}

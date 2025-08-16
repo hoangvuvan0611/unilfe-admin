@@ -35,8 +35,8 @@ export default function SortSelector({ onChange }: SortSelectorProps) {
                 onClick={() => setIsOpen(!isOpen)}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg border hover:border-gray-400 text-sm font-bold"
             >
-                <span>Sắp xếp: {sortOptions.find(opt => opt.id === selected)?.label}</span>
-                <FaChevronDown size={16} className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                <text className={'text-xs'}>Sắp xếp: {sortOptions.find(opt => opt.id === selected)?.label}</text>
+                <FaChevronDown size={12} className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {isOpen && (
@@ -49,7 +49,9 @@ export default function SortSelector({ onChange }: SortSelectorProps) {
                                 selected === option.id ? 'bg-gray-50' : ''
                             }`}
                         >
-                            {option.label}
+                            <div className={'text-sm'}>
+                                {option.label}
+                            </div>
                         </button>
                     ))}
                 </div>

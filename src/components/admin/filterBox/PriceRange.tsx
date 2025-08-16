@@ -30,7 +30,7 @@ export default function PriceRange({ value, onChange }: PriceRangeProps) {
 
     return (
         <div className="flex flex-col min-w-[300px]">
-            <h3 className="text-base font-medium mb-2">Giá</h3>
+            <h3 className="text-sm font-medium mb-2">Giá</h3>
             <div className="px-2">
                 <Slider.Root
                     className="relative flex items-center select-none touch-none w-full h-5"

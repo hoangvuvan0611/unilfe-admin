@@ -25,7 +25,7 @@ export default function StatusFilter({ onChange }: StatusFilterProps) {
 
     return (
         <div className="flex flex-col">
-            <h3 className="text-base font-medium mb-2">Tình trạng</h3>
+            <h3 className="text-sm font-medium mb-2">Tình trạng</h3>
             <div className="flex flex-col gap-2">
                 {statuses.map((status) => (
                     <div key={status.id} className="flex items-center gap-2">
@@ -36,7 +36,7 @@ export default function StatusFilter({ onChange }: StatusFilterProps) {
                                 onChange={() => handleStatusClick(status.id)}
                                 className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-500"
                             />
-                            <span>{status.label}</span>
+                            <div className={'text-xs'}>{status.label}</div>
                         </label>
                     </div>
                 ))}

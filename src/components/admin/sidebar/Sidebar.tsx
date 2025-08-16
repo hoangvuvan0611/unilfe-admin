@@ -24,7 +24,7 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
                 to={PATH_ADMIN}
                 className={'sidebar-header flex justify-center-safe rounded-2xl'}
             >
-                <img src={logo} width={80} height={80} alt={'Unilife'}/>
+                <img src={logo} width={100} height={100} alt={'Unilife'}/>
             </Link>
             <div className="sidebar-menu-button lg:hidden">
                 <button
@@ -56,7 +56,7 @@ const Sidebar: FC<SidebarProps> = ({isOpen, setSidebarOpen}) => {
                                         <div className="mr-4">
                                             {val.icon}
                                         </div>
-                                        <div>
+                                        <div className={'text-sm'}>
                                             {val.title}
                                         </div>
                                     </li>
