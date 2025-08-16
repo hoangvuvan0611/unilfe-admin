@@ -21,7 +21,6 @@ export const SIDEBAR_PATH_USER = "/admin/user";
 export const SIDEBAR_PATH_CONFIG = "/admin/config";
 export const SIDEBAR_PATH_SETTING = "/admin/setting";
 
-
 // Mode
 export const MODE_DARK = "dark";
 export const MODE_LIGHT = "light";
@@ -40,3 +39,15 @@ export type SortType = typeof SORT_TYPE_DEFAULT
     | typeof SORT_TYPE_NEWEST
     | typeof SORT_TYPE_PRICE_ASC
     | typeof SORT_TYPE_PRICE_DESC;
+
+
+
+
+// Response Status
+export const RESPONSE_STATUS_401 = 401;
+
+
+// Localstorage item
+export const LOCALSTORAGE_ACCESS_TOKEN = "access_token";
+
+
