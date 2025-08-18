@@ -1,8 +1,10 @@
 import FilterBox from "../../../components/admin/filterBox/FilterBox.tsx";
-import {IoIosAdd} from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
 import EnhancedTable from "../../../components/admin/enhancedTable/EnhancedTable.tsx";
 import type {Room} from "../../../models/room.ts";
-import {Checkbox, TableCell} from "@mui/material";
+import { Checkbox, TableCell } from "@mui/material";
+import { useState } from "react";
+import CreateRoomBox from "./createRoom/CreateRoomBox.tsx";
 
 const headCells = [
     {
@@ -105,12 +107,24 @@ const rooms = [{
     updatedBy: '20/08/2025',
 }];
 
-export default function Room(){
+export default function Room() {
+    const [openModal, setOpenModal] = useState(false);
+
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
     return (
         <div className={'room p-2'}>
             <div className={'filter-box-button flex items-center my-2' }>
                 <button
                     type="button"
+                    onClick={handleOpenModal}
                     className={'flex items-center justify-center'}
                 >
                     <IoIosAdd width={20} height={20}/>
@@ -151,6 +165,9 @@ export default function Room(){
                     )}
                 />
             </div>
+
+            {/* Modal them moi phong tro */}
+            <CreateRoomBox isOpen={openModal} handleCloseModal={handleCloseModal} />
         </div>
     );
 }
