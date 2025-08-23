@@ -1,10 +1,9 @@
 export interface Room {
     id: string;
-    title: string;
+    name: string;
     description: string;
-    price: string;
-    area: string;
-    roomTypeId: string;
+    price: number;
+    area: number;
     roomType: string;
     address: string;
     contactPhone: string;

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import CustomTextField from "../../../../components/custom/CustomTextField";
 import { useTheme } from '@mui/material/styles';
+import type { Room } from "../../../../models/room";
+import { roomApi } from "../../../../services/roomApi";
 
 export interface CreateRoomBoxProps {
     isOpen: boolean,
@@ -10,62 +12,90 @@ export interface CreateRoomBoxProps {
 }
 
 interface CreateRoomForm {
-    title: string;
+    id: string;
+    name: string;
     description: string;
-    price: string;
-    area: string;
-    roomTypeId: string;
+    price: number;
+    area: number;
+    roomType: string;
     address: string;
     contactPhone: string;
     contactName: string;
     ownerName: string;
+    ownerId: string;
+    rating: number;
+    totalView: number;
+    totalFavorites: number;
+    status: string;
+    state: string;
     availableFrom: string;
     availableTo: string;
-    images: File[];
+    createdAt: string;
+    updatedAt: string;
+    createdBy: string;
+    updatedBy: string;
 }
 
-const initialFormData: CreateRoomForm = {
-    title: '',
+const initialRoomData: Room = {
+    id: '',
+    name: '',
     description: '',
-    price: '',
-    area: '',
-    roomTypeId: '',
+    price: 0,
+    area: 0,
+    roomType: '',
     address: '',
     contactPhone: '',
     contactName: '',
     ownerName: '',
+    ownerId: '',
+    rating: 0,
+    totalView: 0,
+    totalFavorites: 0,
+    status: '',
+    state: '',
     availableFrom: '',
     availableTo: '',
-    images: []
+    createdAt: '',
+    updatedAt: '',
+    createdBy: '',
+    updatedBy: '',
 };
 
 const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal}) => {
 
-    const [formData, setFormData] = useState<CreateRoomForm>(initialFormData);
+    const [roomData, setRoomData] = useState<Room>(initialRoomData);
+
     const [previewImages, setPreviewImages] = useState<string[]>([]);
+    const [uploadImages, setUploadImages ] = useState<File[]>([])
     const theme = useTheme();
 
     const handleSubmit = () => {
         // Xử lý logic tạo mới phòng trọ ở đây
-        console.log('Form data:', formData);
-        
+        console.log('Form data:', roomData);
+        const formData = new FormData();
+        uploadImages.forEach((file) => {
+            formData.append("files", file); // file: File
+        });
+        formData.append("roomData", new Blob([JSON.stringify(roomData)], { type: "application/json" }));
+
+        // Goi tao phong tro
+        const response = roomApi.create(formData);
+        console.log(response);
+
         // Giả lập API call
-        setTimeout(() => {
-            alert('Tạo phòng trọ thành công!');
-            handleCloseModal();
-        }, 1000);
+        // setTimeout(() => {
+        //     alert('Tạo phòng trọ thành công!');
+        //     handleCloseModal();
+        // }, 1000);
     };
 
     const removeImage = (index: number) => {
-        setFormData(prev => ({
-            ...prev,
-            images: prev.images.filter((_, i) => i !== index)
-        }));
         setPreviewImages(prev => prev.filter((_, i) => i !== index));
+        setUploadImages(prev => prev.filter((_, i) => i !== index));
     };
 
     const handleInputChange = (field: keyof CreateRoomForm, value: string) => {
-        setFormData(prev => ({
+        setRoomData(prev => ({
             ...prev,
             [field]: value
         }));
@@ -73,17 +103,13 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
 
     const handleClose = () => {
         handleCloseModal();
-        setFormData(initialFormData);
+        setRoomData(initialRoomData);
         setPreviewImages([]);
     }
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(event.target.files || []);
-        setFormData(prev => ({
-            ...prev,
-            images: [...prev.images, ...files]
-        }));
-
+        setUploadImages(prev => [...prev, ...files]);
         // Tạo preview cho ảnh
         files.forEach(file => {
             const reader = new FileReader();
@@ -185,7 +211,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.title}
+                                    value={roomData.name}
                                     // sx={{
                                     //     "& .MuiInputLabel-root": {
                                     //     fontSize: "14px",   // label khi bình thường
@@ -199,15 +225,16 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     //     fontSize: "12px",   // label thu nhỏ (khi có value hoặc focus)
                                     //     },
                                     // }}
-                                    onChange={(e) => handleInputChange('title', e.target.value)}
+                                    onChange={(e) => handleInputChange('name', e.target.value)}
                                     placeholder="VD: Phòng trọ ghép Cửu Việt 2"
                                 />
                                 <CustomTextField
                                     label="Diện Tích (m²)"
                                     variant="outlined"
                                     fullWidth
+                                    type="number"
                                     size="small"
-                                    value={formData.area}
+                                    value={roomData.area}
                                     onChange={(e) => handleInputChange('area', e.target.value)}
                                     placeholder="VD: 25"
                                 />
@@ -215,18 +242,19 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     label="Giá Thuê (VNĐ)"
                                     variant="outlined"
                                     fullWidth
+                                    type="number"
                                     size="small"
-                                    value={formData.price}
+                                    value={roomData.price}
                                     onChange={(e) => handleInputChange('price', e.target.value)}
                                     placeholder="VD: 3000000"
                                 />
                                 <FormControl fullWidth>
                                     <InputLabel>Loại Phòng</InputLabel>
                                     <Select
-                                        value={formData.roomTypeId}
+                                        value={roomData.roomType}
                                         label="Loại Phòng"
                                         size="small"
-                                        onChange={(e) => handleInputChange('roomTypeId', e.target.value)}
+                                        onChange={(e) => handleInputChange('roomType', e.target.value)}
                                     >
                                         <MenuItem value="1">Phòng đơn</MenuItem>
                                         <MenuItem value="2">Phòng đôi</MenuItem>
@@ -246,7 +274,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                 multiline
                                 size="small"
                                 rows={4}
-                                value={formData.description}
+                                value={roomData.description}
                                 onChange={(e) => handleInputChange('description', e.target.value)}
                                 placeholder="Mô tả chi tiết về phòng trọ, tiện ích, vị trí..."
                             />
@@ -263,9 +291,9 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.address}
+                                    value={roomData.address}
                                     onChange={(e) => handleInputChange('address', e.target.value)}
-                                    placeholder="VD: 123 Nguyễn Văn A, Phường B, Quận C, TP.HCM"
+                                    placeholder="VD: 12A Cửu Việt 1, Trâu Quỳ, Hà Nội"
                                 />
                             </div>
                         </div>
@@ -281,7 +309,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.contactName}
+                                    value={roomData.contactName}
                                     onChange={(e) => handleInputChange('contactName', e.target.value)}
                                     placeholder="VD: Anh Nam"
                                 />
@@ -290,7 +318,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.contactPhone}
+                                    value={roomData.contactPhone}
                                     onChange={(e) => handleInputChange('contactPhone', e.target.value)}
                                     placeholder="VD: 0987654321"
                                 />
@@ -299,7 +327,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.ownerName}
+                                    value={roomData.ownerName}
                                     onChange={(e) => handleInputChange('ownerName', e.target.value)}
                                     placeholder="VD: Nguyễn Văn A"
                                 />
@@ -318,7 +346,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.availableFrom}
+                                    value={roomData.availableFrom}
                                     onChange={(e) => handleInputChange('availableFrom', e.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
@@ -328,7 +356,7 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                                     variant="outlined"
                                     fullWidth
                                     size="small"
-                                    value={formData.availableTo}
+                                    value={roomData.availableTo}
                                     onChange={(e) => handleInputChange('availableTo', e.target.value)}
                                     InputLabelProps={{ shrink: true }}
                                 />
@@ -337,23 +365,30 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
                     </div>
 
                     {/* Footer Actions */}
-                    <div className="sticky z-50 bottom-0 border-t border-gray-200 px-6 py-2 flex justify-end space-x-3">
-                        <Button
-                            variant="outlined"
-                            onClick={handleCloseModal}
-                            className="px-6 py-2"
-                        >
-                            Hủy
-                        </Button>
-                        <Button
-                            variant="contained"
-                            size="small"
-                            onClick={handleSubmit}
-                            className="px-6 py-2 bg-blue-500 hover:bg-blue-600"
-                            disabled={!formData.title || !formData.price || !formData.address}
-                        >
-                            Tạo Phòng Trọ
-                        </Button>
+                    <div className="sticky z-50 bottom-0 border-t border-gray-200 px-6 py-2 flex justify-end space-x-3"
+                        style={{backgroundColor: theme.palette.background.default}}
+                    >
+                        <div>
+                            <Button
+                                variant="contained"
+                                onClick={handleCloseModal}
+                                size="small"
+                                className="px-6 py-2"
+                            >
+                                Hủy
+                            </Button>
+                        </div>
+                        <div>    
+                            <Button
+                                variant="contained"
+                                size="small"
+                                onClick={handleSubmit}
+                                className="px-6 py-2 bg-blue-500 hover:bg-blue-600"
+                                disabled={!roomData.name || !roomData.price || !roomData.address}
+                            >
+                                Tạo Phòng Trọ
+                            </Button>
+                        </div>
                     </div>
                 </Box>
             </Modal>

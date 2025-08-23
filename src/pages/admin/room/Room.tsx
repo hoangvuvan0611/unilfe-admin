@@ -83,11 +83,10 @@ const headCells = [
 
 const rooms = [{
     id: '1',
-    title: 'Tro test',
+    name: 'Tro test',
     description: 'Phong tro tang 2',
-    price: '2000000',
-    area: '15,4',
-    roomTypeId: '123',
+    price: 2000000,
+    area: 15.6,
     roomType: '',
     address: 'Thi tran Trau quy',
     contactPhone: '0398128889',
@@ -150,7 +149,7 @@ export default function Room() {
                                 />
                             </TableCell>
                             <TableCell>{room.id}</TableCell>
-                            <TableCell>{room.title}</TableCell>
+                            <TableCell>{room.name}</TableCell>
                             <TableCell>{room.description}</TableCell>
                             <TableCell>{room.address}</TableCell>
                             <TableCell>{room.price}</TableCell>

@@ -2,11 +2,8 @@ import axios from 'axios';
 import { LOCALSTORAGE_ACCESS_TOKEN, PATH_AUTH, RESPONSE_STATUS_401 } from '../common/const';
 
 const apiClient = axios.create({
-    baseURL: import.meta.env.API_BASE_URL_BACKEND_SERVICE,
-    timeout: import.meta.env.TIME_OUT_URL_BACKEND_SERVICE,
-    headers: {
-        "Content-Type": "application/json"
-    }
+    baseURL: import.meta.env.VITE_API_BASE_URL_BACKEND_SERVICE,
+    timeout: import.meta.env.VITE_TIME_OUT_URL_BACKEND_SERVICE,
 });
 
 // Interceptor request -> gan thong tin token neu co
@@ -18,7 +15,7 @@ apiClient.interceptors.request.use(
         }
         return config;
     },
-    (error) => Promise. reject(error),
+    (error) => Promise.reject(error),
 );
 
 // Interceptor response -> Xu ly loi chung
