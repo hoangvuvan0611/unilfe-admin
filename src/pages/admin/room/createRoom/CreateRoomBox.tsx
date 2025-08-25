@@ -84,12 +84,12 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
 
         roomApi.create(formData)
         .then((response) => {
-            const data = response.data; // 👈 lấy dữ liệu backend
-            if (data.success) {
+            if (response.success) {
                 toast.success("🎉 Tạo phòng trọ thành công!");
+                cleanFormData();
                 handleCloseModal();
             } else {
-                toast.error(`❌ lỗi: ${data.message}`);
+                toast.error(`❌ lỗi: ${response.message}`);
             }
         })
         .catch((error) => {
@@ -97,6 +97,12 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
             toast.error("🚨 Có lỗi xảy ra khi gọi API.");
         });
     };
+
+    const cleanFormData = () => {
+        setRoomData(initialRoomData);
+        setPreviewImages([]);
+        setUploadImages([]);
+    }
 
     const removeImage = (index: number) => {
         setPreviewImages(prev => prev.filter((_, i) => i !== index));
