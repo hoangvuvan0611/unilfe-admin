@@ -5,6 +5,7 @@ import CustomTextField from "../../../../components/custom/CustomTextField";
 import { useTheme } from '@mui/material/styles';
 import type { Room } from "../../../../models/room";
 import { roomApi } from "../../../../services/roomApi";
+import { toast } from "react-toastify";
 
 export interface CreateRoomBoxProps {
     isOpen: boolean,
@@ -69,24 +70,32 @@ const CreateRoomBox: React.FC<CreateRoomBoxProps> = ({isOpen, handleCloseModal})
     const [uploadImages, setUploadImages ] = useState<File[]>([])
     const theme = useTheme();
 
-    const handleSubmit = () => {
-        // Xử lý logic tạo mới phòng trọ ở đây
-        console.log('Form data:', roomData);
+    const handleSubmit = async () => {
+        console.log("Form data:", roomData);
+
         const formData = new FormData();
         uploadImages.forEach((file) => {
-            formData.append("files", file); // file: File
+            formData.append("files", file);
         });
-        formData.append("roomData", new Blob([JSON.stringify(roomData)], { type: "application/json" }));
+        formData.append(
+            "roomData",
+            new Blob([JSON.stringify(roomData)], { type: "application/json" })
+        );
 
-        // Goi tao phong tro
-        const response = roomApi.create(formData);
-        console.log(response);
-
-        // Giả lập API call
-        // setTimeout(() => {
-        //     alert('Tạo phòng trọ thành công!');
-        //     handleCloseModal();
-        // }, 1000);
+        roomApi.create(formData)
+        .then((response) => {
+            const data = response.data; // 👈 lấy dữ liệu backend
+            if (data.success) {
+                toast.success("🎉 Tạo phòng trọ thành công!");
+                handleCloseModal();
+            } else {
+                toast.error(`❌ lỗi: ${data.message}`);
+            }
+        })
+        .catch((error) => {
+            console.error("API error:", error);
+            toast.error("🚨 Có lỗi xảy ra khi gọi API.");
+        });
     };
 
     const removeImage = (index: number) => {
